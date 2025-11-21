@@ -24,7 +24,7 @@
             </a>
         </div>
 
-        {{-- ✅ Success & Error --}}
+        {{-- Success & Error --}}
         @if(session('success'))
             <div class="alert alert-success glass-card mb-4">{{ session('success') }}</div>
         @endif
@@ -32,13 +32,14 @@
             <div class="alert alert-danger glass-card mb-4">{{ session('error') }}</div>
         @endif
 
-        {{-- 🧮 Attendance Form --}}
+        {{-- Attendance Form --}}
         <form action="{{ route('admin.salaryslip.update', $monthRecord->id) }}" method="POST" class="needs-validation" novalidate>
             @csrf
             @method('PUT')
 
             <div class="row g-4">
-                {{-- 🧾 Attendance Summary --}}
+
+                {{-- Attendance Summary --}}
                 <div class="col-12">
                     <h5 class="fw-bold text-warning border-bottom pb-2 mb-3">🧮 Attendance Summary</h5>
                     <div class="row g-3">
@@ -70,7 +71,63 @@
                     </div>
                 </div>
 
-                {{-- 💻 WFH Details --}}
+                {{-- Additional Earnings / Deductions --}}
+                <div class="col-12 mt-4">
+                    <h5 class="fw-bold text-warning border-bottom pb-2 mb-3">💰 Additional Earnings / Deductions</h5>
+                    <div class="row g-3">
+
+                        {{-- Alternative Variable Pay --}}
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold text-light">Alternative Variable Pay</label>
+                            <input 
+                                type="number" 
+                                name="alternative_variable_pay"
+                                class="form-control glass-input"
+                                value="{{ old('alternative_variable_pay', $monthRecord->alternative_variable_pay) }}"
+                                min="0" 
+                                step="0.01">
+                        </div>
+
+                        {{-- Alternative Variable Losses --}}
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold text-light">Alternative Variable Losses</label>
+                            <input 
+                                type="number" 
+                                name="alternative_variable_loses"
+                                class="form-control glass-input"
+                                value="{{ old('alternative_variable_loses', $monthRecord->alternative_variable_loses) }}"
+                                min="0" 
+                                step="0.01">
+                        </div>
+
+                        {{-- Incentive --}}
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold text-light">Incentive</label>
+                            <input 
+                                type="number" 
+                                name="incentive"
+                                class="form-control glass-input"
+                                value="{{ old('incentive', $monthRecord->incentive) }}"
+                                min="0" 
+                                step="0.01">
+                        </div>
+
+                        {{-- Reward --}}
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold text-light">Reward</label>
+                            <input 
+                                type="number" 
+                                name="reward"
+                                class="form-control glass-input"
+                                value="{{ old('reward', $monthRecord->reward) }}"
+                                min="0" 
+                                step="0.01">
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- WFH Details --}}
                 <div class="col-12 mt-4">
                     <hr class="border-light mb-2">
                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -104,6 +161,7 @@
                         @endforelse
                     </div>
                 </div>
+
             </div>
 
             <div class="mt-5 d-flex justify-content-end">
@@ -151,9 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 {{-- Styles --}}
 <style>
-.page-title {
-    color: #fff;
-}
+.page-title { color: #fff; }
 .dashboard-card {
     background: rgba(255,255,255,0.07);
     border: 1px solid rgba(255,255,255,0.1);
@@ -198,12 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
     background: rgba(255,255,255,0.15);
     border-color: rgba(255,255,255,0.6);
 }
-.fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-}
+.fade-in { animation: fadeIn 0.3s ease-in-out; }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
 }
 </style>
+
 @endsection

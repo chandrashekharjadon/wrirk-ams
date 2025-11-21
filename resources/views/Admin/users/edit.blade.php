@@ -150,7 +150,7 @@
                     <input type="file" name="profile_photo"
                            class="form-control glass-input text-white">
 
-                    @if ($user->profile->profile_photo)
+                    @if ($user?->profile?->profile_photo)
                     <div class="mt-2">
                         <img src="{{ asset('storage/'.$user->profile->profile_photo) }}"
                              width="100" height="100" class="rounded mt-2 border">
@@ -163,7 +163,7 @@
                         <i class="bi bi-credit-card-2-front-fill me-1 text-warning"></i> Aadhar Number
                     </label>
                     <input type="text" name="aadhar" class="form-control glass-input text-white"
-                        value="{{ old('aadhar', $user->profile->aadhar) }}">
+                        value="{{ old('aadhar', $user?->profile?->aadhar) }}">
                 </div>
 
                 <div class="col-md-4">
@@ -171,7 +171,7 @@
                         <i class="bi bi-card-text me-1 text-warning"></i> PAN Number
                     </label>
                     <input type="text" name="pan" class="form-control glass-input text-white"
-                        value="{{ old('pan', $user->profile->pan) }}">
+                        value="{{ old('pan', $user?->profile?->pan) }}">
                 </div>
 
                 <div class="col-md-6">
@@ -179,7 +179,7 @@
                        <i class="bi bi-phone-fill me-1 text-warning"></i> Mobile Number
                     </label>
                     <input type="text" name="mobile" class="form-control glass-input text-white"
-                        value="{{ old('mobile', $user->profile->mobile) }}">
+                        value="{{ old('mobile', $user?->profile?->mobile) }}">
                 </div>
 
                 <div class="col-md-6">
@@ -187,7 +187,7 @@
                        <i class="bi bi-bank2 me-1 text-warning"></i> Account Number
                     </label>
                     <input type="text" name="acc_no" class="form-control glass-input text-white"
-                        value="{{ old('acc_no', $user->profile->acc_no) }}">
+                        value="{{ old('acc_no', $user?->profile?->acc_no) }}">
                 </div>
 
                 <div class="col-md-6">
@@ -195,7 +195,7 @@
                        <i class="bi bi-bank me-1 text-warning"></i> IFSC Code
                     </label>
                     <input type="text" name="ifsc_code" class="form-control glass-input text-white"
-                        value="{{ old('ifsc_code', $user->profile->ifsc_code) }}">
+                        value="{{ old('ifsc_code', $user?->profile?->ifsc_code) }}">
                 </div>
 
                 <div class="col-md-6">
@@ -203,7 +203,7 @@
                        <i class="bi bi-calendar-event-fill me-1 text-warning"></i> Joining Date
                     </label>
                     <input type="date" name="joining_date" class="form-control glass-input text-white"
-                        value="{{ old('joining_date', $user->profile->joining_date) }}">
+                        value="{{ old('joining_date', $user?->profile?->joining_date) }}">
                 </div>
 
                 <div class="col-md-6">
@@ -211,7 +211,7 @@
                        <i class="bi bi-map-fill me-1 text-warning"></i> Address
                     </label>
                     <input type="text" name="address" class="form-control glass-input text-white"
-                        value="{{ old('address', $user->profile->address) }}">
+                        value="{{ old('address', $user?->profile?->address) }}">
                 </div>
 
                 <div class="col-md-6">
@@ -219,7 +219,7 @@
                        <i class="bi bi-geo-alt-fill me-1 text-warning"></i> Pin Code
                     </label>
                     <input type="text" name="pin_code" class="form-control glass-input text-white"
-                        value="{{ old('pin_code', $user->profile->pin_code) }}">
+                        value="{{ old('pin_code', $user?->profile?->pin_code) }}">
                 </div>
 
             </div>
@@ -234,7 +234,7 @@
                     </label>
                     <input type="number" name="gross_salary" id="gross_salary"
                         class="form-control glass-input text-white"
-                        value="{{ old('gross_salary', $user->userSalary->gross_salary) }}">
+                        value="{{ old('gross_salary', $user?->userSalary?->gross_salary) }}">
                 </div>
 
                 <div class="col-md-4">
@@ -243,7 +243,7 @@
                     </label>
                     <input type="number" name="basic" id="basic"
                         class="form-control glass-input text-white" readonly
-                        value="{{ old('basic', $user->userSalary->basic) }}">
+                        value="{{ old('basic', $user?->userSalary?->basic) }}">
                 </div>
 
                 <div class="col-md-4">
@@ -252,7 +252,7 @@
                     </label>
                     <input type="number" name="hra" id="hra" readonly
                         class="form-control glass-input text-white"
-                        value="{{ old('hra', $user->userSalary->hra) }}">
+                        value="{{ old('hra', $user?->userSalary?->hra) }}">
                 </div>
 
                 <div class="col-md-4">
@@ -261,7 +261,7 @@
                     </label>
                     <input type="number" name="conveyance" id="conveyance" readonly
                         class="form-control glass-input text-white"
-                        value="{{ old('conveyance', $user->userSalary->conveyance) }}">
+                        value="{{ old('conveyance', $user?->userSalary?->conveyance) }}">
                 </div>
 
                 <div class="col-md-4">
@@ -270,7 +270,7 @@
                     </label>
                     <input type="number" name="simple_allowance" id="simple_allowance" readonly
                         class="form-control glass-input text-white"
-                        value="{{ old('simple_allowance', $user->userSalary->simple_allowance) }}">
+                        value="{{ old('simple_allowance', $user?->userSalary?->simple_allowance) }}">
                 </div>
 
                 <div class="col-md-4">
@@ -279,7 +279,7 @@
                     </label>
                     <input type="number" name="other_allowance" id="other_allowance" readonly
                         class="form-control glass-input text-white"
-                        value="{{ old('other_allowance', $user->userSalary->other_allowance) }}">
+                        value="{{ old('other_allowance', $user?->userSalary?->other_allowance) }}">
                 </div>
 
             </div>

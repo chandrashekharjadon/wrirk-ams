@@ -60,6 +60,7 @@ return new class extends Migration
             // 🔁 Alternative Pay (Variable Pay)
             $table->decimal('alternative_variable_pay', 10, 2)->default(0);
             $table->decimal('alternative_variable_loses', 10, 2)->default(0);
+            $table->decimal('total_earning', 10, 2)->default(0);
 
             // 💸 Deductions
             $table->decimal('leave_deduction', 10, 2)->default(0);

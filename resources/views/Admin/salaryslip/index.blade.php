@@ -52,7 +52,7 @@
                     {{-- 🔘 Buttons --}}
                     <div class="col-md-3 d-flex align-items-end gap-2">
                         <button type="submit" class="btn btn-premium d-flex align-items-center gap-2 w-100">
-                            <i class="bi bi-funnel me-1 fs-5"></i> filter
+                            <i class="bi bi-funnel me-1 fs-5"></i> Filter
                         </button>
 
                         <a href="{{ route('admin.salaryslip.index') }}"
@@ -237,6 +237,10 @@
                                     <td>₹ {{ number_format($monthRecord->half_day_deduction, 2) }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Wfh Deductions:</th>
+                                    <td>₹ {{ number_format($monthRecord->wfh_deduction_cost ?? 0, 2) }}</td>
+                                </tr>
+                                <tr>
                                     <th>Other Deductions:</th>
                                     <td>₹ {{ number_format($monthRecord->other_deduction ?? 0, 2) }}</td>
                                 </tr>
@@ -250,11 +254,8 @@
                 </div>
 
                 <!-- Net Salary -->
-                @php
-                $finalNet = ($monthRecord->gross_salary + $monthRecord->total_wfh_cost) - $monthRecord->total_deduction;
-                @endphp
                 <div class="net-salary-box mt-4">
-                    💵 Net Salary Payable: <span>₹ {{ number_format($finalNet, 2) }}</span>
+                    💵 Net Salary Payable: <span>₹ {{ number_format($monthRecord->net_salary, 2) }}</span>
                 </div>
 
             </div>
@@ -264,7 +265,6 @@
                 <p class="text-light opacity-75">Select employee, month, and year to view the salary slip.</p>
             </div>
             @endif
-
 
         </div>
     </main>

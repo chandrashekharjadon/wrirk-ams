@@ -51,6 +51,7 @@ class MonthRecord extends Model
         // Alternative / Variable Pay
         'alternative_variable_pay',
         'alternative_variable_loses',
+        'total_earning',
 
         // Deductions
         'leave_deduction',
@@ -90,6 +91,7 @@ class MonthRecord extends Model
 
         'alternative_variable_pay' => 'decimal:2',
         'alternative_variable_loses' => 'decimal:2',
+        'total_earning' => 'decimal:2',
 
         'leave_deduction' => 'decimal:2',
         'half_day_deduction' => 'decimal:2',

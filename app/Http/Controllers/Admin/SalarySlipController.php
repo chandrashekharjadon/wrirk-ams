@@ -11,14 +11,13 @@ use App\Models\User;
 use App\Models\MonthRecord;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
-
 class SalarySlipController extends Controller
 {
     protected $reportService;
     // protected $wfhService;
     protected $salCalService;
 
-    public function __construct(AttendanceReportService $reportService, SalaryCalculationService $salCalService, )
+    public function __construct(AttendanceReportService $reportService, SalaryCalculationService $salCalService)
     {
         $this->reportService = $reportService;
         $this->salCalService = $salCalService;
@@ -37,6 +36,7 @@ class SalarySlipController extends Controller
 
         // Only run if filters are selected
         if ($request->filled(['user_id', 'month', 'year'])) {
+
             // Step 1️⃣: Get attendance summary
             $results = $this->reportService->getWeeklyReport($userId, $month, $year);
 
@@ -48,11 +48,12 @@ class SalarySlipController extends Controller
 
             // Step 3️⃣: If not exists, create it
             if (!$monthRecord) {
+
                 $calculatedData = $this->salCalService->calculateMonthlySalary(
                     $userId,
                     $month,
                     $year,
-                    $results,
+                    $results
                 );
 
                 $monthRecord = MonthRecord::create([
@@ -60,7 +61,7 @@ class SalarySlipController extends Controller
                     'month'           => $month,
                     'year'            => $year,
                     'working_hours'   => $calculatedData['working_hours'] ?? 0,
-                    'working_days'   => $calculatedData['working_days'] ?? 0,
+                    'working_days'    => $calculatedData['working_days'] ?? 0,
                     'half_days'       => $calculatedData['half_days'] ?? 0,
                     'leaves'          => $calculatedData['leaves'] ?? 0,
                     'sandwitch'       => $calculatedData['sandwitch'] ?? 0,
@@ -82,6 +83,17 @@ class SalarySlipController extends Controller
                     'total_deduction'     => $calculatedData['total_deduction'] ?? 0,
                     'net_salary'          => $calculatedData['net_salary'] ?? 0,
                     'daily_rate'          => $calculatedData['daily_rate'] ?? 0,
+
+                    // New Fields
+                    'pf'                        => $calculatedData['pf'] ?? 0,
+                    'tds'                       => $calculatedData['tds'] ?? 0,
+                    'alternative_variable_pay'  => $calculatedData['alternative_variable_pay'] ?? 0,
+                    'alternative_variable_loses'=> $calculatedData['alternative_variable_loses'] ?? 0,
+                    'total_earning'             => $calculatedData['total_earning'] ?? 0,
+                    'total_cl'                  => $calculatedData['total_cl'] ?? 0,
+                    'incentive'                 => $calculatedData['incentive'] ?? 0,
+                    'reward'                    => $calculatedData['reward'] ?? 0,
+                    'wfh_deduction_cost'        => $calculatedData['wfh_detection'] ?? 0,
                 ]);
             }
         }
@@ -89,7 +101,7 @@ class SalarySlipController extends Controller
         return view('Admin.salaryslip.index', compact('users', 'month', 'year', 'monthRecord'));
     }
 
-     /**
+    /**
      * Show the edit form
      */
     public function edit(MonthRecord $monthRecord)
@@ -112,6 +124,12 @@ class SalarySlipController extends Controller
             'wfh'             => 'nullable|numeric|min:0',
             'wfh_dates'       => 'nullable|array',
             'wfh_percentages' => 'nullable|array',
+
+            //new field add..
+            'alternative_variable_pay' => 'nullable|numeric|min:0',
+            'alternative_variable_loses'  => 'nullable|numeric|min:0',
+            'incentive' => 'nullable|numeric|min:0',
+            'reward' => 'nullable|numeric|min:0',
         ]);
 
         $monthRecord = MonthRecord::findOrFail($id);
@@ -125,6 +143,11 @@ class SalarySlipController extends Controller
             'wfh',
             'wfh_dates',
             'wfh_percentages',
+             //new field add..
+            'alternative_variable_pay',
+            'alternative_variable_loses',
+            'incentive',
+            'reward',
         ]);
         
         // dd($results);
@@ -133,8 +156,10 @@ class SalarySlipController extends Controller
                 $monthRecord->month,
                 $monthRecord->year,
                 $results,
-                $monthRecord
+                $monthRecord,
         );
+
+        // dd($calculatedData);
     
         $monthRecord->update([
             // 📅 Attendance & Leave
@@ -169,6 +194,18 @@ class SalarySlipController extends Controller
             'total_deduction'     => $calculatedData['total_deduction'] ?? 0,
             'net_salary'          => $calculatedData['net_salary'] ?? 0,
             'daily_rate'          => $calculatedData['daily_rate'] ?? 0,
+
+            // New Fields
+            'pf'                        => $calculatedData['pf'] ?? 0,
+            'tds'                       => $calculatedData['tds'] ?? 0,
+            'alternative_variable_pay'  => $calculatedData['alternative_variable_pay'] ?? 0,
+            'alternative_variable_loses'=> $calculatedData['alternative_variable_loses'] ?? 0,
+            'total_earning'             => $calculatedData['total_earning'] ?? 0,
+            'total_cl'                  => $calculatedData['total_cl'] ?? 0,
+            'incentive'                 => $calculatedData['incentive'] ?? 0,
+            'reward'                    => $calculatedData['reward'] ?? 0,
+            'wfh_deduction_cost'        => $calculatedData['wfh_detection'] ?? 0,
+
 
             'status' => 'update and approved' ?? 'not approved',
         ]);
@@ -235,6 +272,17 @@ class SalarySlipController extends Controller
             'net_salary'          => $calculatedData['net_salary'] ?? 0,
             'daily_rate'          => $calculatedData['daily_rate'] ?? 0,
 
+            // New Fields
+            'pf'                        => $calculatedData['pf'] ?? 0,
+            'tds'                       => $calculatedData['tds'] ?? 0,
+            'alternative_variable_pay'  => $calculatedData['alternative_variable_pay'] ?? 0,
+            'alternative_variable_loses'=> $calculatedData['alternative_variable_loses'] ?? 0,
+            'total_earning'             => $calculatedData['total_earning'] ?? 0,
+            'total_cl'                  => $calculatedData['total_cl'] ?? 0,
+            'incentive'                 => $calculatedData['incentive'] ?? 0,
+            'reward'                    => $calculatedData['reward'] ?? 0,
+            'wfh_deduction_cost'        => $calculatedData['wfh_detection'] ?? 0,
+
             'status' => 'approved' ?? 'not approved',
         ]);
 
@@ -244,7 +292,6 @@ class SalarySlipController extends Controller
 
     public function pdfData(MonthRecord $monthRecord)
     {
-        dd($monthRecord);
         $user = $monthRecord->user;
 
         // Load your PDF Blade view

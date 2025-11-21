@@ -89,9 +89,9 @@
 
       <tr>
          <td class="s5">Date of Joining</td>
-         <td>naa</td>
+         <td>{{ $monthRecord->user->profile->joining_date }}</td>
          <td class="s5">Total CL</td>
-         <td style="text-align:center;">{{ $monthRecord->available_cl }}</td>
+         <td style="text-align:center;">{{ $monthRecord->total_cl }}</td>
       </tr>
 
       <tr>
@@ -110,14 +110,14 @@
 
       <tr>
          <td class="s5">PAN</td>
-         <td></td>
+         <td>{{$monthRecord->user->profile->pan}}</td>
          <td class="s5">Total WFH</td>
          <td style="text-align:center;">{{ $monthRecord->wfh }}</td>
       </tr>
 
       <tr>
          <td class="s5">Bank Account Number</td>
-         <td></td>
+         <td>{{ $monthRecord->user->profile->acc_no }}</td>
          <td></td>
          <td></td>
       </tr>
@@ -148,7 +148,7 @@
          <td>Basic Salary</td>
          <td style="text-align:center;">{{ number_format($monthRecord->basic, 2) }}</td>
          <td>Loss on WFH</td>
-         <td style="text-align:center;">0</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->wfh_deduction_cost, 2) }}</td>
       </tr>
 
       <tr>
@@ -160,42 +160,42 @@
 
       <tr>
          <td>Special Allowance</td>
-         <td style="text-align:center;">{{ number_format($monthRecord->simple_allowance + $monthRecord->other_allowance, 2) }}</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->simple_allowance, 2) }}</td>
          <td>Alternative Variable Losses</td>
-         <td style="text-align:center;">0</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->alternative_variable_loses, 2) }}</td>
       </tr>
 
       <tr>
          <td>Conveyance Allowance</td>
-         <td style="text-align:center;">0</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->conveyance, 2) }}</td>
          <td>PF</td>
-         <td style="text-align:center;">0</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->pf, 2) }}</td>
       </tr>
 
       <tr>
          <td>Other Allowance</td>
-         <td style="text-align:center;">1188</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->other_allowance, 2) }}</td>
          <td>TDS</td>
-         <td style="text-align:center;">0</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->tds, 2) }}</td>
       </tr>
 
       <tr>
          <td>Alternative Variable Pay</td>
-         <td style="text-align:center;">0</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->alternative_variable_pay, 2) }}</td>
          <td></td>
          <td></td>
       </tr>
 
       <tr>
          <td>Incentive / Reward</td>
-         <td></td>
+         <td style="text-align:center;">{{ number_format($monthRecord->reward + $monthRecord->incentive, 2) }}</td>
          <td></td>
          <td></td>
       </tr>
 
       <tr>
          <td class="s5">Total Earnings</td>
-         <td style="text-align:center;">{{ number_format($monthRecord->gross_salary, 2) }}</td>
+         <td style="text-align:center;">{{ number_format($monthRecord->total_earning, 2) }}</td>
          <td class="s5">Total Deduction</td>
          <td style="text-align:center;">{{ number_format($monthRecord->total_deduction, 2) }}</td>
       </tr>
